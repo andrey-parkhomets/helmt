@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path"
@@ -47,7 +46,7 @@ type PostProcess struct {
 }
 
 func readParameters(filename string) (*HelmChart, error) {
-	yamlFile, err := ioutil.ReadFile(filename)
+	yamlFile, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -285,5 +284,5 @@ func downloadChartMetadata(tmpDir, chart, repo, version string) error {
 
 	targetPath := filepath.Join(tmpDir, chart, "Chart.yaml")
 
-	return ioutil.WriteFile(targetPath, output.Bytes(), os.ModePerm)
+	return os.WriteFile(targetPath, output.Bytes(), os.ModePerm)
 }

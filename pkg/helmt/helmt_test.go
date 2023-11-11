@@ -2,7 +2,6 @@ package helmt
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"reflect"
@@ -507,7 +506,7 @@ resources:
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			fs = afero.NewOsFs()
-			dir, err := ioutil.TempDir("", "kustomization")
+			dir, err := os.MkdirTemp("", "kustomization")
 			assert.NoError(t, err)
 			err = copy.Copy(tt.args.directory, dir)
 			assert.NoError(t, err)
